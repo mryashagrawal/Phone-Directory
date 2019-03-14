@@ -1,0 +1,83 @@
+<html>
+<head>
+	<title>
+		Phone Directory
+	</title>
+	<style>
+	*{margin:0px;padding:0px;}
+	#header{background-color:black;width:100%;height:7%;color:white;text-align: center;padding-top:20px;font-size:18px;font-family: arial}
+	#ctable{width:100%;padding:18px;}
+	#tname,#tphone{padding-bottom:20px;width:35%;color:	#394451;}
+	#tbutton{width:10%;}
+	#add{text-align: center;width:60px;height:30px;background-color:#228B22;border:none;color:white;cursor: pointer;}
+	#input{padding:22px;width:100%;	color:#394451;display: none;}
+	#back{border:none;background-color: white;text-align: center;width:90px;height:30px;margin-bottom:40px;cursor: pointer; }
+	input{width:250px;height:30px;border:1px solid #D3D3D3;border-radius: 2px;padding:15px;font-size: 14px;}
+	#sub{color: #003366 ;font-weight: bold;}
+	#dbutton{background-color: #f9504d;border:none;text-align: center;width:90px;height:30px;}
+</style>
+<script>
+	var num=1;
+	function addData(){
+		var name=document.getElementById("name").value;
+		var phoneno=document.getElementById("phoneno").value;
+		if(phoneno.length!=10){
+			alert("Invalid Phone Number!!");
+			return false;
+		}
+		num=num+1;
+		var t=document.getElementById("ctable");
+		var row=t.insertRow(num);
+		var d1=row.insertCell(0);
+		var d2=row.insertCell(1);
+		var d3=row.insertCell(2);
+		d1.innerHTML=name;
+		d2.innerHTML=phoneno;
+		d3.innerHTML="<button id='dbutton' onclick='deleteData("+num+")''>DELETE</button>";
+		bmenu();
+	}
+	function deleteData(i){
+		document.getElementById("ctable").deleteRow(i);
+	}
+	function add(){
+		document.getElementById("name").value="";
+		document.getElementById("phoneno").value="";
+		document.getElementById("dname").innerHTML="";
+		document.getElementById("dnum").innerHTML="";
+		document.getElementById("display").style="display:none";
+		document.getElementById("input").style="display:block";
+	}
+	function nameinput(){
+		var name=document.getElementById("name").value;
+		document.getElementById("dname").innerHTML=name;
+	}
+	function numinput(){
+		var phoneno=document.getElementById("phoneno").value;
+		document.getElementById("dnum").innerHTML=phoneno;
+	}
+	function bmenu(){
+		document.getElementById("input").style="display:none;";
+		document.getElementById("display").style="display:block;";
+	}
+</script>
+</head>
+<body>
+	<div id="header">PHONE DIRECTORY</div>
+	<div id="display">
+		<table id="ctable">
+			<tr rowspan="3"><td style="padding-bottom: 20px;"><button id="add" onclick="add()">ADD</button></td></tr>
+			<tr><td id="tname">NAME</td><td id="tphone">PHONE</td><td id="tbutton"></td></tr>
+
+		</table>
+	</div>
+	<div id="input">
+		<button id="back" onclick="bmenu()">BACK</button><br />
+		Name:<br /><input type="text" id="name" onkeyup="nameinput()"><br /><br />
+		Phone:<br /><input type="text" id="phoneno" onkeyup="numinput()"><br /><br />
+		<span id="sub">Subscriber to be added:<br /></span>
+		Name:&nbsp;<span id="dname"></span><br />
+		Phone:&nbsp;<span id="dnum"></span><br /><br />
+		<button id="add" onclick="addData()">ADD</button>
+	</div>
+</body>
+</html>
